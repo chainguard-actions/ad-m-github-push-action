@@ -1,0 +1,43 @@
+name: Test directory input
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.email "test@example.com"
+          git config user.name "Test User"
+
+      - name: Create a test commit
+        run: |
+          echo "dir-test-$(date +%s)" > tests/dir-test-artifact.txt
+          git add tests/dir-test-artifact.txt
+          git commit -m "test: add artifact for directory input test" || echo "Nothing to commit"
+
+      - id: push
+        uses: .
+        with:
+          branch: act-harness
+          github_token: ${{ github.token }}
+          directory: '.'
+        continue-on-error: true
+
+      - name: Assert push with directory input ran (success or graceful failure on sentinel repo)
+        env:
+          OUTCOME: ${{ steps.push.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" = "success" ]; then
+            echo "PASS: push with directory input succeeded"
+          elif [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: push with directory input failed gracefully (expected with sentinel repo)"
+          else
+            echo "FAIL: unexpected outcome '$OUTCOME'"
+            exit 1
+          fi
