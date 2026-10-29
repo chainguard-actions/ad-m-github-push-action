@@ -6,9 +6,9 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 ## Versions
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v1.3.0 | [`v1.3.0`](https://github.com/chainguard-actions/ad-m-github-push-action/tree/v1.3.0) | [`881a632`](https://github.com/ad-m/github-push-action/commit/881a6320fdb16eb5318c5054f31c218aec2b324c) |
+| Version | Tag | Upstream commit | Hardening report |
+|---------|-----|-----------------|------------------|
+| v1.3.0 | [`v1.3.0`](https://github.com/chainguard-actions/ad-m-github-push-action/tree/v1.3.0) | [`881a632`](https://github.com/ad-m/github-push-action/commit/881a6320fdb16eb5318c5054f31c218aec2b324c) | [`HARDENING.md`](https://github.com/chainguard-actions/ad-m-github-push-action/blob/v1.3.0/HARDENING.md) |
 
 ## Privacy
 
